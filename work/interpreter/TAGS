@@ -1,0 +1,48 @@
+
+compiler.c,2599
+#define CALLSTACK_STRING_LENGTH CALLSTACK_STRING_LENGTH7,98
+char callstack_string[CALLSTACK_STRING_LENGTH];callstack_string9,137
+char *callstack_string_p = callstack_string;callstack_string_p10,185
+char *oldcallstack_string_p = callstack_string;oldcallstack_string_p11,230
+char *callstack_malloc(int length)callstack_malloc13,279
+inline bool ispair(char *exp)ispair27,610
+char *car(char *exp)car33,778
+char *cdr(char *exp)cdr59,1312
+char *insert(char *exp, char* element)insert91,1950
+char *list(int n, ...)list112,2546
+inline char *cadr(char *exp)cadr155,3307
+inline char *caddr(char *exp)caddr159,3366
+inline char *cadddr(char *exp)cadddr163,3431
+bool tag_check(char *e, char *sym)tag_check168,3503
+char prim_tag[10] = "primitive";prim_tag177,3630
+inline bool isprimitive(char *e)isprimitive179,3664
+inline char *make_primitive(char* procedure)make_primitive184,3737
+inline char *get_scheme_procedure(char *prim)get_scheme_procedure189,3828
+char compound_tag[9] = "compound";compound_tag194,3902
+inline char *make_compound(char *parameters, char *body, TABLE env)make_compound195,3937
+inline bool iscompound(char *exp)iscompound199,4066
+inline char *parameters(char *compound)parameters203,4145
+inline char *body(char *compound)body207,4216
+inline char *env(char *compound)env211,4282
+char *map(SINGLE_OPERATOR operator, char *operands,TABLE *env)map216,4349
+char *_apply(char *procedure, char *e1, char *e2)_apply245,4909
+void make_bindings(char *names, char *values, TABLE *table)make_bindings328,6354
+TABLE *extend_env_with_new_frame(char *names, char *values, TABLE env)extend_env_with_new_frame341,6603
+char *apply(char *operator, char *operands)apply356,7071
+bool isnumber(char *e)isnumber393,7766
+inline bool isdefine(char *e)isdefine400,7865
+bool issymbol(char *e)issymbol405,7936
+inline bool isapplication(char *e)isapplication413,8053
+inline bool islambda(char *e)islambda417,8114
+TABLE make_table(void)make_table422,8185
+TABLE environment[1];environment430,8310
+TABLE table_get(TABLE t, char *key)table_get432,8333
+void table_put(TABLE *t, char *key, char *value)table_put450,8564
+char *binding_value(TABLE binding)binding_value462,8810
+char *lookup(char *name, TABLE env)lookup478,9159
+char *eval_define(char *exp, TABLE *env)eval_define496,9468
+inline bool isif(char *exp)isif527,10229
+char *eval_if(char *exp, TABLE *env)eval_if545,10633
+char *eval_lambda(char *exp, TABLE *env)eval_lambda561,11026
+char *eval(char *exp, TABLE *env)eval568,11173
+int main(int argc,char *argv[])main598,11736
