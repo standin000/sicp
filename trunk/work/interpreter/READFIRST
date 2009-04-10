@@ -1,0 +1,6 @@
+A ugly scheme interpreter by C.
+1. It use string to simulate base element of scheme: list, 
+"(+ 1 2)". It shoulde use linked list.
+2. It use a simple memory malloc means(callstack_malloc) for
+reduce code about alloc and free memory(It is needless in 
+Scheme). Its disadvantage is waste lots of memory.
