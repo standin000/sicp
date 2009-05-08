@@ -1,0 +1,51 @@
+; If one can not acquire higher numbered resource before it has acquired
+; lower numbered resource, so it can not stop others which has lower numbered
+; resource by acquire higher numbered resource
+
+(define (exchange account1 account2)
+  (let ((difference (- (account1 'balance)
+		       (account2 'balance))))
+    ((account1 'withdraw) difference)
+    ((account2 'deposit) difference)))
+
+(define (make-account-and-serializer balance priority)
+  (define (withdraw amount)
+    (if (>= balance amount)
+	(begin (set! balance (- balance amount))
+	       balance)
+	"Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (define (get-priority)
+    priority)
+  (let ((balance-serializer (make-serializer)))
+    (define (dispatch m)
+      (cond ((eq? m 'withdraw) withdraw)
+	    ((eq? m 'deposit) deposit)
+	    ((eq? m 'get-priority) get-priority)
+	    ((eq? m 'balance) balance)
+	    ((eq? m 'serializer) balance-serializer)
+	    (else (error "Unknown request -- MAKE-ACCOUNT"
+			 m))))
+    dispatch))
+
+(define (deposit account amount)
+  (let ((s (account 'serializer))
+	(d (account 'deposit)))
+    ((s d) amount)))
+
+(define (withdraw account amount)
+  (let ((s (account 'serializer))
+	(d (account 'withdraw)))
+    ((s d) amount)))
+
+(define (serialized-exchange account1 account2)
+  (let ((serializer1 (account1 'serializer))
+	(serializer2 (account2 'serializer)))
+    (define (serializer)
+      (if (> (account1 'get-priority)
+	     (account2 'get-priority))
+	  (serializer1 (serializer2 exchange))
+	  (serializer2 (serializer1 exchange))))
+    (serializer account1 account2)))
